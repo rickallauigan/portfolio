@@ -1,0 +1,158 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from '../components/ProjectCard.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { profile, technologyGroups } from '../data/profile';
+const caseStudies = (await getCollection('caseStudies'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+const writing = (await getCollection('writing', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={profile.shortName}
+  description="Backend and platform engineering portfolio focused on secure delivery, infrastructure automation, runtime assurance, and honest technical evidence."
+>
+  <section class="hero container">
+    <p class="eyebrow">Engineering reliable paths to production</p>
+    <h1>{profile.headline}</h1>
+    <p class="lede">
+      {profile.introduction} My current direction is platform engineering, DevSecOps,
+      and cloud security.
+    </p>
+    <div class="actions">
+      <a class="button" href="/case-studies">View case studies</a><a
+        class="button secondary"
+        href={profile.github}>GitHub profile</a
+      >
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="container">
+      <p class="eyebrow">Trajectory</p><h2>
+        From application code to the systems around it
+      </h2><div class="trajectory">
+        <article>
+          <h3>Backend foundations</h3><p>
+            Go services, APIs, data stores, identity, and distributed-system
+            concerns.
+          </p>
+        </article><article>
+          <h3>Platform practice</h3><p>
+            Containers, Kubernetes, CI/CD, infrastructure automation, and
+            observability.
+          </p>
+        </article><article>
+          <h3>Secure delivery</h3><p>
+            Versioned controls, policy checks, artifact scanning, and auditable
+            evidence.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section container">
+    <p class="eyebrow">DevSecOps pillars</p><h2>
+      Security across the delivery lifecycle
+    </h2><div class="grid">
+      <article class="card">
+        <h3>Secure delivery</h3><p>
+          Shift repeatable checks into versioned pipelines, set explainable
+          gates, and retain evidence about what was shipped.
+        </p>
+      </article><article class="card">
+        <h3>Secure infrastructure</h3><p>
+          Review configuration before deployment and enforce context-specific
+          policy alongside broad misconfiguration checks.
+        </p>
+      </article><article class="card">
+        <h3>Runtime assurance</h3><p>
+          Connect runtime detections to useful telemetry, actionable alerts, and
+          a documented human response.
+        </p>
+      </article>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="container">
+      <p class="eyebrow">Selected work</p><h2>
+        Case studies built around evidence
+      </h2><p class="section-intro">
+        These initial studies are plans, not claims of completed implementation.
+        Evidence and measurements will be added only after the labs run.
+      </p><div class="grid">
+        {
+          caseStudies.map((entry) => (
+            <ProjectCard
+              title={entry.data.title}
+              summary={entry.data.summary}
+              status={entry.data.status}
+              href={`/case-studies/${entry.id}`}
+              technologies={entry.data.technologies}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+  <section class="section container">
+    <p class="eyebrow">Technology</p><h2>Grouped by engineering purpose</h2><div
+      class="grid two"
+    >
+      {
+        technologyGroups.map((group) => (
+          <article class="card">
+            <>
+              <h3>{group.title}</h3>
+              <ul class="tag-list">
+                {group.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="container">
+      <p class="eyebrow">Technical writing</p><h2>
+        Build logs and engineering notes
+      </h2><div class="grid">
+        {
+          writing.map((entry) => (
+            <article class="card">
+              <>
+                <span class="status">{entry.data.status}</span>
+                <h3>
+                  <a class="card-link" href={`/writing/${entry.id}`}>
+                    {entry.data.title}
+                  </a>
+                </h3>
+                <p>{entry.data.description}</p>
+              </>
+            </article>
+          ))
+        }
+      </div><div class="actions">
+        <a class="button secondary" href="/writing">Read all writing</a>
+      </div>
+    </div>
+  </section>
+  <section class="section container">
+    <p class="eyebrow">Collaborate</p><h2>
+      Interested in reliable delivery and secure platforms?
+    </h2><p class="lede">
+      See the implementation work, review the decisions, or get in touch through
+      an available professional channel.
+    </p><div class="actions">
+      <a class="button" href="/contact">Contact</a><a
+        class="button secondary"
+        href={profile.repository}>Review this site’s source</a
+      >
+    </div>
+  </section>
+</BaseLayout>

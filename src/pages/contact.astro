@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { profile } from '../data/profile';
+const links = [
+  { label: 'GitHub', href: profile.github },
+  { label: 'LinkedIn', href: profile.linkedin },
+  { label: 'Email', href: profile.email ? `mailto:${profile.email}` : null },
+  { label: 'CV', href: profile.cv },
+].filter((item): item is { label: string; href: string } => Boolean(item.href));
+---
+
+<BaseLayout
+  title="Contact"
+  description="Professional contact links for Rick Allauigan."
+  ><header class="page-header container">
+    <p class="eyebrow">Contact</p><h1>Start with the work</h1><p class="lede">
+      The available channels below are maintained in one profile data file.
+      Missing contact methods are intentionally not published.
+    </p>
+  </header><section class="section container">
+    <div class="grid two">
+      {
+        links.map((item) => (
+          <article class="card">
+            <>
+              <h2>{item.label}</h2>
+              <a class="card-link" href={item.href}>
+                Open {item.label}
+              </a>
+            </>
+          </article>
+        ))
+      }
+    </div>
+  </section></BaseLayout
+>

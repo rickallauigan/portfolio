@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+coverage/
+
+# Local AI-assisted review and contributor context. Keep these available to
+# collaborators on this workstation without publishing them with the site.
+AGENTS.md
+AGENTS.MD
+REVIEW.MD

@@ -1,0 +1,25 @@
+---
+interface Props {
+  title: string;
+  summary: string;
+  status: string;
+  href: string;
+  technologies?: string[];
+}
+const { title, summary, status, href, technologies = [] } = Astro.props;
+---
+
+<article class="card">
+  <span class="status">{status}</span>
+  <h3><a class="card-link" href={href}>{title}</a></h3>
+  <p>{summary}</p>
+  {
+    technologies.length > 0 && (
+      <ul class="tag-list" aria-label="Technologies">
+        {technologies.map((technology) => (
+          <li>{technology}</li>
+        ))}
+      </ul>
+    )
+  }
+</article>

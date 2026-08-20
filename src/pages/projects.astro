@@ -1,0 +1,23 @@
+---
+import ProjectCard from '../components/ProjectCard.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { projects } from '../data/profile';
+---
+
+<BaseLayout
+  title="Projects"
+  description="Selected backend, platform, DevSecOps, and cloud-security engineering projects."
+  ><header class="page-header container">
+    <p class="eyebrow">Projects</p><h1>Engineering work, with context</h1><p
+      class="lede"
+    >
+      Each item separates intended design from demonstrated results. Initial
+      security projects remain planned until implementation evidence is
+      available.
+    </p>
+  </header><section class="section container">
+    <div class="grid">
+      {projects.map((project) => <ProjectCard {...project} />)}
+    </div>
+  </section></BaseLayout
+>

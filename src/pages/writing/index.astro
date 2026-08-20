@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const entries = (
+  await getCollection('writing', ({ data }) => !data.draft)
+).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<BaseLayout
+  title="Writing"
+  description="Technical articles and honest build logs about backend systems, platform engineering, DevSecOps, and cloud security."
+  ><header class="page-header container">
+    <p class="eyebrow">Writing</p><h1>Notes from building the system</h1><p
+      class="lede"
+    >
+      Architecture decisions, build logs, controls under test, and the gaps
+      still left to close.
+    </p>
+  </header><section class="section container">
+    <div class="grid two">
+      {
+        entries.map((entry) => (
+          <article class="card">
+            <>
+              <span class="status">{entry.data.status}</span>
+              <h2>
+                <a class="card-link" href={`/writing/${entry.id}`}>
+                  {entry.data.title}
+                </a>
+              </h2>
+              <p>{entry.data.description}</p>
+              <time datetime={entry.data.publishedAt.toISOString()}>
+                {entry.data.publishedAt.toLocaleDateString('en-GB', {
+                  dateStyle: 'long',
+                })}
+              </time>
+            </>
+          </article>
+        ))
+      }
+    </div>
+  </section></BaseLayout
+>
