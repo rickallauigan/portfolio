@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://allauigan.com/sitemap-index.xml

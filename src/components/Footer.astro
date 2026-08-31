@@ -1,0 +1,17 @@
+---
+import { profile } from '../data/profile';
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span
+      >© {new Date().getFullYear()}
+      {profile.shortName}. Built as documented engineering work.</span
+    >
+    <span
+      ><a href={profile.repository}>Source repository</a> · <a
+        href="https://allauigan.com">Production site</a
+      ></span
+    >
+  </div>
+</footer>

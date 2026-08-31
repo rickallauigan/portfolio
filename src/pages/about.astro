@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { technologyGroups } from '../data/profile';
+---
+
+<BaseLayout
+  title="About"
+  description="Rick Allauigan’s progression from backend software engineering toward platform engineering, DevSecOps, and cloud security."
+  ><header class="page-header container">
+    <p class="eyebrow">About</p><h1>
+      Software engineering beyond the application boundary
+    </h1><p class="lede">
+      I began in backend engineering, building Go services, APIs, and
+      distributed systems. That work led naturally toward the systems
+      surrounding application delivery.
+    </p>
+  </header><article class="prose">
+    <h2>Engineering trajectory</h2><p>
+      My professional background includes senior software engineering, backend
+      team leadership, and project team leadership. I now apply the same habits
+      used in application development—versioning, testing, review, automation,
+      and observable behavior—to CI/CD, containers, Kubernetes, infrastructure,
+      and security controls.
+    </p><h2>Current direction</h2><p>
+      My focus is platform engineering, DevSecOps, cloud security, and security
+      automation. This portfolio documents that progression through designs and
+      labs, clearly distinguishing established backend experience from
+      capabilities still being developed.
+    </p><h2>Technology context</h2>{
+      technologyGroups.map((group) => (
+        <section>
+          <>
+            <h3>{group.title}</h3>
+            <ul>
+              {group.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </>
+        </section>
+      ))
+    }
+  </article></BaseLayout
+>

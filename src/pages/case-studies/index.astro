@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from '../../components/ProjectCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const entries = (await getCollection('caseStudies')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<BaseLayout
+  title="Case studies"
+  description="DevSecOps case studies documenting problems, threat models, decisions, controls, evidence, limitations, and improvements."
+  ><header class="page-header container">
+    <p class="eyebrow">Case studies</p><h1>Decisions before decoration</h1><p
+      class="lede"
+    >
+      Structured technical work covering the problem, threat model,
+      architecture, trade-offs, controls, validation, and limits.
+    </p>
+  </header><section class="section container">
+    <div class="grid">
+      {
+        entries.map((entry) => (
+          <ProjectCard
+            title={entry.data.title}
+            summary={entry.data.summary}
+            status={entry.data.status}
+            technologies={entry.data.technologies}
+            href={`/case-studies/${entry.id}`}
+          />
+        ))
+      }
+    </div>
+  </section></BaseLayout
+>

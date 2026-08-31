@@ -1,0 +1,36 @@
+---
+import BaseLayout from './BaseLayout.astro';
+interface Props {
+  title: string;
+  description: string;
+  status?: string;
+  date?: Date;
+  technologies?: string[];
+}
+const { title, description, status, date, technologies = [] } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} type="article">
+  <header class="page-header container">
+    {status && <span class="status">{status}</span>}
+    <h1>{title}</h1>
+    <p class="lede">{description}</p>
+    {
+      date && (
+        <time datetime={date.toISOString()}>
+          {date.toLocaleDateString('en-GB', { dateStyle: 'long' })}
+        </time>
+      )
+    }
+    {
+      technologies.length > 0 && (
+        <ul class="tag-list" aria-label="Technologies">
+          {technologies.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      )
+    }
+  </header>
+  <article class="prose"><slot /></article>
+</BaseLayout>
